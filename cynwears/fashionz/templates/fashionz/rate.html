@@ -1,0 +1,36 @@
+{% extends 'fashionz/base.html'%} {% load crispy_forms_tags%}
+<html>
+{% block content%}
+<div class="container">
+    <div class="container">
+        <a href="{% url 'detail' product.id%}">Back</a>
+    </div>
+    <div class="row">
+        <div class="col-md-7 container">
+            <img class="rounded" src="{{product.image.url}}" style="height:450px" width="100%" alt="">
+        </div>
+        <div class="col-md-4 container-fluid">
+            <div class="card text-center p-2  rounded shadow m-3">
+                <span class="badge badge-pill p-2 badge-success ">Item Name</span> {{product.name|title}}</P>
+                <span class="" style="font-size:40px; color: black;"><i class="fa fa-comments" aria-hidden="true"></i>
+                </span>
+
+                <p>Your feedback is very important to the product's seller as well as potential buyers. Please leave your most honest review to help others in search for clothing.</p>
+            </div>
+
+            <div class="card text-justify p-2 m-2 rounded shadow m-3">
+                <form method="POST">
+                    {% csrf_token%}
+                    <div class="input-field">
+                        {{form.comment|as_crispy_field}}
+                    </div>
+                    <div class="input-field" required>
+                        {{form.rate|as_crispy_field}}
+                    </div class="m-2 p-1">
+                    <button class="m-2 p-1 btn text-center btn-info" type="submit">save</button>
+                </form>
+            </div>
+        </div>
+        {% endblock content%}
+
+</html>

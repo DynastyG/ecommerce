@@ -1,0 +1,84 @@
+{% extends 'fashionz/base.html'%} {% block content%}
+<div class="container">
+    <div class="row">
+        <a href="{% url 'store'%}" class="nav-link ">Go Back</a>
+        <div class="col-md-7">
+            <div class="card container">
+                <img style="height:600px; width:100%;" src="{{product.image.url}}" alt="">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="m-3 p-2  rounded bg-light text-center">
+                <h6 class="text-center m-2 font-weight-bold">PRODUCT NAME</h6>
+
+                <p style="font-family:'century Gothic',san serif;">{{product.name}}
+                </p>
+            </div>
+            <div class="m-3 p-2  rounded bg-light text-center">
+                <h6 class="text-center m-2 font-weight-bold">PRODUCT DESCRIPTION</h6>
+
+                <p class="m-2 p-2" style="font-family:'century Gothic',san serif; ">{{ product.description}}
+                </p>
+
+            </div>
+            <div class="m-3 p-2  rounded bg-light text-center">
+                <h6 class="text-center m-2 font-weight-bold">PRODUCT SIZE</h6>
+                <p class="" style="font-family:'century Gothic',san serif;">{{product.size}}
+                </p>
+            </div>
+            <div class="m-3 p-2  rounded bg-light text-center">
+                <h6 class="text-center m-2 font-weight-bold">PRODUCT COLOR</h6>
+                <p style="font-family:'century Gothic',san serif;">{{product.color}}
+                </p>
+            </div>
+            <div class="m-3 p-2  rounded bg-light text-center">
+                <h6 class="text-center m-2 font-weight-bold">PRODUCT PRICE</h6>
+                <p style="font-family:'century Gothic',san serif;"> Ksh {{product.price}}
+                </p>
+            </div>
+            <!-- <div class="text-center">
+              <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Shop</button>
+            </div> -->
+
+        </div>
+    </div>
+    <div class="row m-3 p-2">
+        <div class="container">
+            <div class=" bg-white col-md-10 shadow-lg rounded p-2 container-fluid feedback ">
+                <h5 class="text-center m-3 p-2"> Feedback about <a href="">{{product.name}}</a></h5>
+                <a href=" {% url 'rate' product.id%}" class="btn btn-primary p-2 m-2 text-center">
+            Leave feedback
+        </a>
+                <div class="p-2 m-2">
+                    <p>Rated: {{average_ratings.rate__avg|floatformat}}/5 <span style="font-size:18px; color: Orange;"><i class="fa fa-star" aria-hidden="true"></i></span></p>
+                    <p>{{total_ratings}} Reviews</p>
+                </div>
+                {% for rating in product.rating.all reversed%}
+                <div class="row ml-2">
+                    <div class="container m-2 ml-3 p-2   col-md-8 mr-2 rounded bg-light shadow text-dark">
+                        <p>
+                            <span>
+                 <img class="rounded-circle profile-pic " style="width: 30px;height:30px;" src="{{ rating.user.profile.image.url}} " alt=" ">
+             </span>
+                            <span class=font-weight-bold>
+             {{rating.user}} </span>
+                            <span class="ml-5"><i class="fa fa-comments" aria-hidden="true"></i>
+                    </span>
+                            <div class=" container text-justify ">
+                                {{rating.comment|title}} <br>Rated : {{rating.rate}}/5 <span style="font-size:18px; color: Orange;"><i class="fa fa-star" aria-hidden="true"></i></span>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                {% empty%}
+                <div class="text-center m-2 p-2">
+                    <p>No ratings for this Mover's page Yet !!!.</p>
+
+                </div>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content%}
